@@ -1,6 +1,8 @@
 #### install
 
 ```
+<script src="./dist/cuberotate.js"></script>
+
 npm install cuberotate --save
 ```
 
@@ -22,7 +24,8 @@ npm install cuberotate --save
 ##### javascript
 
 ```
-import cubeRotate from 'cuberotate';
+
+if you use npm  import cubeRotate from 'cuberotate';
 var options={direct:"v",autoPlay:true,transitionComplete:imgChagnedHandler}
 var cube=new cubeRotate(".boxContainer",options);
 function imgChangeHandler(imgIndex){
