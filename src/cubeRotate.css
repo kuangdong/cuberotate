@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+.box_rotate {overflow: hidden;position: relative;height:300px;}
+.box_rotate a{display:block;}
+.box_rotate img{width:100%;}
+.box_rotate>ul{width:100%;height:100%;}
+.box_rotate>ul>li{position:absolute;top:0;left:0;visibility:hidden;width:100%;}
+.box_rotate>ul>li:nth-child(1){visibility:visible;};
+.box_rotate>ul>li>a{display:block;width:100%;}
+.cubeContainer{
+	width: 100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	-moz-perspective: 1400px;
+	-webkit-perspective: 1400px;
+	-o-perspective: 1400px;
+	-ms-perspective: 1400px;
+	
+}
+.cube{
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+}
+.cubeDiv{
+	width:100%;
+	height:100%;
+	background-repeat:no-repeat;
+	position:absolute;
+	background-color:#222;
+	-webkit-backface-visibility:hidden;
+}

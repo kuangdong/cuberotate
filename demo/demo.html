@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <title>demo</title>
+    <script src="../dist/cuberotate.js"></script>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    ul,li{
+        padding:0;
+        margin:0;
+        list-style:none;
+   }
+    .homeContainer{
+        position: relative;
+    }
+    .prevBtn{
+        position: absolute;
+        color: #ffffff;
+        font-size: 60px;
+        z-index: 2;
+        padding: 20px;
+        cursor: pointer;
+        opacity: 0.6;
+        top: 50%;
+        margin-top: -60px;
+        left: 0;
+    }
+    .nextBtn{
+        position: absolute;
+        color: #ffffff;
+        font-size: 60px;
+        z-index: 2;
+        padding: 20px;
+        cursor: pointer;
+        opacity: 0.6;
+        top: 50%;
+        margin-top: -60px;
+        right: 0;
+    }
+    .potContainer{
+        position: absolute;
+        width:100%;
+        text-align: center;
+        bottom: 2px;
+        background-color: rgba(0,0,0,0.2);
+    }
+    .pot{
+        display: inline-block;
+        border-radius: 50%;
+        width:10px;
+        height: 10px;
+        margin: 0 10px;
+        background-color: #ffffff;
+        opacity: 0.5;
+    }
+    .pot.active{
+        opacity: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="homeContainer">
+        <div class="prevBtn"><</div>
+        <div class="box_swipe boxContainer">
+            <ul>
+                <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592306760352&di=1eb8a3691d7bb9c61d70ea531011ca83&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2Fbc49a8a90b6b15b34b7d35bb19fdc6814aa9cc4b.jpg"/></li>
+                <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592306876229&di=36a37ebbea8478f74874ea539766c1ce&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161017%2F29a431cb760b41d89df7fd253feffcc6_th.jpeg"/></li>
+                <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592306954796&di=14f0ded97eae87f675291dc566caaf67&imgtype=0&src=http%3A%2F%2Ft9.baidu.com%2Fit%2Fu%3D2250173585%2C2826318500%26fm%3D193"/></li>
+                <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592306996806&di=f02b0c441957c9b1b70a2c3a27aca5e9&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn09%2F297%2Fw1200h697%2F20180424%2F5367-fzqvvsa2966089.png"/></li>
+                <li><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592307040293&di=47e424e42a841747ac622f2fc303c191&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn11%2F291%2Fw1200h691%2F20180505%2Fd3b4-fzyqqir2112174.png"/></li>
+            </ul>
+        </div>
+        <div class="nextBtn">></div>
+        <div class="potContainer"></div>
+    </div>
+  </body>
+  <script>
+      var cube=new CubeRotate(".boxContainer",{autoPlay:true,transitionComplete:imgChagnedHandler});
+      document.querySelector(".prevBtn").addEventListener("click",function(e){
+        cube.prev();
+    });
+    document.querySelector(".nextBtn").addEventListener("click",function(e){
+        cube.next();
+    });
+    var imgList=document.querySelector(".boxContainer").querySelector("ul").querySelectorAll("li");
+    var potContainer=document.querySelector(".potContainer");
+    for(var i=0;i<imgList.length;i++){
+        var pot=document.createElement("div");
+        var className="pot";
+        if(i==cube.getIndex())
+            className="pot active";
+        pot.className=className;
+        potContainer.appendChild(pot);
+    }
+    potContainer.addEventListener("click",function(e){
+        var targetPot=e.target;
+        if(targetPot.className==="pot"){
+            var potList=potContainer.querySelectorAll(".pot");
+            for(var i=0;i<potList.length;i++){
+                if(potList[i]==targetPot){
+                   cube.setIndex(i);
+                   break;
+                }
+            }
+        }
+    });
+    function imgChagnedHandler(index){
+        var classname=potContainer.querySelector(".active").className;
+        classname=removeClass(classname,"active");
+        potContainer.querySelector(".active").className=classname;
+        //removeClass("active","active");
+
+        classname=potContainer.querySelectorAll(".pot")[cube.getIndex()].className;
+        classname+=" active";
+        potContainer.querySelectorAll(".pot")[cube.getIndex()].className=classname;
+    }
+    function removeClass(className,removeClassName){
+        var reg=new RegExp('^'+removeClassName+'\\s|\\s'+removeClassName+'$|^'+removeClassName+'$|\\s'+removeClassName+'\\s');
+        className=className.replace(reg,function(fullMatch){
+            var replaceStr="";
+            if(fullMatch.match(/\s\w+\s/))
+                replaceStr=" ";
+            return replaceStr;
+        });
+        return className;
+    }
+      
+      //var cubeRotate3=new CubeRotate.default(".boxcontainer",{autoPlay:true});
+      //console.info("dfdddd=",cubeRotate3)
+  </script>
+</html>
